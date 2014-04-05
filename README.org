@@ -1,0 +1,49 @@
+# -*- eval: (auto-fill-mode); eval: (flyspell-mode) -*-
+
+=cl-gcal2org= is a program to fetch Google Calendar events and convert
+them into [[http://orgmode.org/][Org]] format.
+
+* Installation
+  Simply =make install=.  Read =Makefile= for more configurations.
+
+* Usage
+** Command Line Arguments
+   When invoked without any arguments, the program will print all the
+   Google Calendar IDs owned by the user.
+
+   To get the calendar events converted to Org format, you need to pass
+   the program calendar IDs you got when you run the program without
+   any arguments.  Here is an example.
+
+   #+begin_example
+   $ gcal2org
+   a@gmail.com
+   b@gmail.com
+   #contacts@group.v.calendar.google.com
+
+   $ gcal2org a@gmail.com #contacts@group.v.calendar.google.com
+   * a@gmail.com
+   ** Event 1
+      <timestamp 1>
+   ** Event 2
+      <timestamp 2>
+   * #contacts@group.v.calendar.google.com
+   ** Event 3
+      <timestamp 3>
+   Description 3
+   #+end_example
+
+** OAuth2 Token
+   When running the program for the first time, you will receive a
+   message prompting you to go to Google's website to get a OAuth2 token
+   for authentication.  The prompt contains a URI that you should go to
+   get the code.
+   
+   After you enter the code, the program will continue to get the token
+   and cache it somewhere in you computer (read the source code for more
+   details).
+
+* Dependencies
+  This project depends on the following package(s) that cannot be found
+  in [[http://www.quicklisp.org/][Quicklisp]]:
+  - [[https://github.com/Neronus/oauth2][oauth2]]
