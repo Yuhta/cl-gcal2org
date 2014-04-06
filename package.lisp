@@ -5,6 +5,7 @@
         #:local-time)
   (:import-from #+sbcl #:sb-posix
                 #+(or ecl clisp) #:ext
+                #+ccl #:ccl
                 #:getenv)
   (:import-from #:oauth2
                 #:token-string))

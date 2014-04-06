@@ -6,6 +6,7 @@
                #:cl-ppcre
                #:flexi-streams
                #:local-time
-               #:oauth2)
+               #:oauth2
+               #+ccl #:osicat)
   :components ((:file "package")
                (:file "cl-gcal2org")))

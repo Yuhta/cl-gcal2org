@@ -11,12 +11,13 @@
      }"
     :side-effects nil))
 
-#+(or sbcl ecl)
+#+(or sbcl ecl ccl)
 (defun permission (path)
   #+sbcl (sb-posix:stat-mode (sb-posix:stat path))
+  #+ccl (osicat-posix:stat-mode (osicat-posix:stat path))
   #+ecl (c-stat-mode (namestring path)))
 
-#+(or sbcl ecl)
+#+(or sbcl ecl ccl)
 (defun check-permission (path &optional (expected #o600))
   (when-let* ((path (probe-file path))
               (actual (logand (permission path) #o777)))
@@ -47,9 +48,10 @@
   (ffi:c-inline (mask) (:unsigned-int) :unsigned-int
     "umask (#0)" :one-liner t))
 
-#+(or sbcl ecl clisp)
+#+(or sbcl ecl clisp ccl)
 (defun umask (mask)
   #+sbcl (sb-posix:umask mask)
+  #+ccl (osicat-posix:umask mask)
   #+ecl (c-umask mask)
   #+clisp (posix:umask mask))
 
